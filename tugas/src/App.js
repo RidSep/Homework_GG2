@@ -1,29 +1,8 @@
-import data from './components/single-sample';
-import './App.css';
+import React from "react";
+import './App.css'
+import Home from "./home/index";
 
-function App() {
-  return (
-    <div className="App">
-       <input type="text" placeholder="Search" />
-      <button class="src">Search</button>
-      <br />
-      <br/>
-      <header className="App-header">
-      <img src={data.album.images[1].url} className="App-logo" alt="logo" />
-        <h2>{data.album.name}</h2>
-        <h3>{data.album.artists[0].name}</h3>
-        <button class="select">Select</button>
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-      </header>
-    </div>
-  );
-}
-
+const App = () => {
+	return <Home />;
+};
 export default App;
