@@ -6,6 +6,7 @@ import "./music-card.css";
 const MusicCard = ({ track, isSelected, onSelectTrack }) => {
 	return (
 		<Card className='track-card'>
+		<div className="container">
 			<div className='img'>
 				<img src={track.album.images[0].url} alt='Album' />
 			</div>
@@ -38,6 +39,7 @@ const MusicCard = ({ track, isSelected, onSelectTrack }) => {
 					</div>
 				</div>
 			</div>
+		</div>
 		</Card>
 	);
 };

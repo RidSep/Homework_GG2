@@ -1,6 +1,8 @@
+*{
+	box-sizing: border-box;
+	
+}
 .select-song button {
-	background-color: hsl(var(--clr-primary));
-	color: hsl(var(--clr-text));
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	border: none;
@@ -9,11 +11,17 @@
 	width: 100%;
 	cursor: pointer;
 }
+.container{
+	display: flex;
+	justify-content: center;
+}
 
 .track-card {
 	width: 22rem;
 	max-width: 22rem;
-	height: 100%;
+	padding: 15px;
+    margin-bottom: 40px;
+	flex: 1;
 }
 
 .track-card .content {
@@ -40,7 +48,9 @@
 	letter-spacing: 2px;
 	color: hsl(var(--clr-text) / 0.4);
 }
-
+.track-informations{
+	margin-left: 20px;
+}
 .track-card .content > div:where(:not(:last-child)) {
 	margin-bottom: 1rem;
 }
