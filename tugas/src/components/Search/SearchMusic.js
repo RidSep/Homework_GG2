@@ -1,17 +1,15 @@
 import React from "react";
 import "./SearchMusic.css";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const SearchMusic = ({ onSubmit, onChange }) => {
 	return (
 		<div className='search-container'>
 			<form action='#' onSubmit={onSubmit}>
-				<input
-					className='input-search'
-					type='text'
-					placeholder='Type your track...'
-					onChange={onChange}
-				/>
-				<button>Search</button>
+				
+				<TextField id="outlined-basic" label="Search" size="small" variant="outlined" onChange={onChange}/>
+				<Button variant="outlined" size="medium">Search</Button>
 			</form>
 		</div>
 	);

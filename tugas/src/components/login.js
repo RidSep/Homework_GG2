@@ -1,4 +1,5 @@
 import "./login.css";
+import Button from '@mui/material/Button';
 
 const Login = ({ onClick, logo }) => {
 	return (
@@ -6,9 +7,9 @@ const Login = ({ onClick, logo }) => {
 			<div className='welcome'>
 				<img src={logo} alt='Spotify Logo' />
 				<h1>&#x1F44B; Hy welcome to Spotify</h1>
-				<button onClick={onClick} className='btn-primary'>
+				<Button variant="contained" onClick={onClick}>
 					Login
-				</button>
+				</Button>
 			</div>
 		</div>
 	);
