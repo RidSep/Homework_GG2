@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 
 // Configurations
-import { getTracks, createPlaylist, getUserInfo } from "../../components/API/api";
+import { getTracks, createPlaylist } from "../../components/API/api";
 import TokenContext from "../../context/TokenContext";
+import { getUserInfo } from "../../components/Auth/index";
 
 // Components
 import logo from "../../spotify.png";

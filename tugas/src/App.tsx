@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 // Auth
-import { getToken } from "./components/API/api";
+import { getToken } from "./components/Auth/index";
 
 // Pages
 import Home from "./pages/home/index";

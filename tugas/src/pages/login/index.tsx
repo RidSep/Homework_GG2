@@ -1,5 +1,5 @@
 // Authorization
-import { authSpotify } from "../../components/API/api";
+import { authSpotify } from "../../components/Auth/index";
 
 // Components
 import Login from "../../components/login";

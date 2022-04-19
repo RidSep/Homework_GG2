@@ -4,9 +4,6 @@ import Card from "./UI/Card";
 import "./createplaylist.css";
 
 const CreatePlaylist = ({ onClose, onSubmit, show }) => {
-	const handleSubmit = (e) => {
-		alert(`Submitted`);
-	};
 
 	if (!show) {
 		return null;
