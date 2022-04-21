@@ -1,12 +1,17 @@
-import React from "react";
 import { convertDuration } from "./functions";
 import Card from "./UI/Card";
 import "./music-card.css";
+import { Track } from "../components/spotify";
 
-const MusicCard = ({ track, isSelected, onSelectTrack }) => {
+type MusicCardProps = {
+	track: Track;
+	isSelected: boolean;
+	onSelectTrack: any;
+};
+
+const MusicCard =({ track, isSelected, onSelectTrack }: MusicCardProps) => {
 	return (
 		<Card className='track-card'>
-		<div className="container">
 			<div className='img'>
 				<img src={track.album.images[0].url} alt='Album' />
 			</div>
@@ -39,7 +44,6 @@ const MusicCard = ({ track, isSelected, onSelectTrack }) => {
 					</div>
 				</div>
 			</div>
-		</div>
 		</Card>
 	);
 };

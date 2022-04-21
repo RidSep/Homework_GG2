@@ -1,22 +1,35 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 // Configurations
 import { getTracks, createPlaylist } from "../../components/API/api";
-import TokenContext from "../../context/TokenContext";
-import { getUserInfo } from "../../components/Auth/index";
+
+// Redux
+import { logout } from "../../store/authSlice";
+import {
+	useTypedSelector,
+	useTypedDispatch,
+} from "../../components/hooks/ReduxHooks";
 
 // Components
 import logo from "../../spotify.png";
-import FormCreatePlaylist from "../../components/createplaylist";
+import CreatePlaylist from "../../components/createplaylist";
 import SearchTracks from "../../components/Search/SearchMusic";
 import Navigation from "../../components/navigation";
-import Tracks from "../../components/musics";
+import Musics from "../../components/musics";
 import PreviewSelectedMusics from "../../components/PreviewSelectedMusics";
+
+// Types
+import { Track } from "../../components/spotify";
 
 // Styling
 import "./index.css";
 
 const Home = () => {
+	// Redux
+	const dispatch = useTypedDispatch();
+	const history = useHistory();
+
 	// Tracks
 	const [tracks, setTracks] = useState([]);
 	const [keyword, setKeyword] = useState("");
@@ -25,23 +38,16 @@ const Home = () => {
 	const [selectedTracks, setSelectedTracks] = useState([]);
 
 	// Config
-	const { token, setToken } = useContext(TokenContext);
-	const [userInfo, setUserInfo] = useState([]);
+	const token = useTypedSelector((state) => state.auth.accessToken);
+	const userInfo = useTypedSelector((state) => state.auth.userInfo);
 	const [show, setShow] = useState(false);
-
-	// Get user info when the token is available
-	useEffect(() => {
-		if (token) {
-			getUserInfo(token).then((res) => {
-				setUserInfo(res);
-			});
-		}
-	}, []);
+	const [showAlert, setShowAlert] = useState(false);
 
 	// Handle Logout
 	const handleLogout = () => {
-		setToken("");
+		dispatch(logout());
 		localStorage.removeItem("token");
+		history.push("/");
 	};
 
 	// Get data from API
@@ -82,6 +88,7 @@ const Home = () => {
 		// Reset State
 		setSelectedTracks([]);
 		setShow(false);
+		setShowAlert(true);
 	};
 
 	const handleChange = (e) => setKeyword(e.target.value);
@@ -93,16 +100,33 @@ const Home = () => {
 				modalShow={() => setShow(true)}
 				isDisplayed={selectedTracks.length > 0}
 				logout={handleLogout}
-				userInfo={userInfo}
 			/>
-			<FormCreatePlaylist
+			<CreatePlaylist
 				onSubmit={handleCreatePlaylist}
 				show={show}
 				onClose={() => setShow(false)}
 			/>
+			{/* <AlertSuccess
+				header={"Success created playlist!"}
+				message={"Check your spotify account to check it."}
+				show={showAlert}
+				onClose={() => setShowAlert(false)}
+			/> */}
 			<div id='tracks'>
+				<div className='section-introduction'>
+					<h1 className='title'>Find and Create Playlist</h1>
+					<p className='desc'>
+						Find a track, select it, and create your personal playlist
+					</p>
+				</div>
+				<SearchTracks onChange={handleChange} onSubmit={handleSearch} />
+				<Musics
+					tracks={tracks}
+					onSelectTrack={handleSelect}
+					selectedTracks={selectedTracks}
+				/>
 				{selectedTracks.length > 0 ? (
-					<div className='section-introduction'>
+					<div className='section-introduction' style={{ marginTop: "4rem" }}>
 						<h1 className='title'>Create Playlists</h1>
 						<p className='desc'>
 							Create your personal playlist from the selected tracks.
@@ -112,18 +136,6 @@ const Home = () => {
 						</div>
 					</div>
 				) : null}
-				<div className='section-introduction'>
-					<h1 className='title'>Find and Create Playlist</h1>
-					<p className='desc'>
-						Find a track, select it, and create your personal playlist
-					</p>
-				</div>
-				<SearchTracks onChange={handleChange} onSubmit={handleSearch} />
-				<Tracks
-					tracks={tracks}
-					onSelectTrack={handleSelect}
-					selectedTracks={selectedTracks}
-				/>
 			</div>
 		</>
 	);

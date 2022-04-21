@@ -1,3 +1,5 @@
+import { UserProfile } from "../../components/spotify";
+
 // Spotify Authorization
 export const authSpotify = (): void => {
 	const config = {
@@ -18,31 +20,18 @@ export const authSpotify = (): void => {
 };
 
 // Get user info
-export const getUserInfo = async (token: string) => {
-	const response = await fetch("https://api.spotify.com/v1/me/", {
-		method: "GET",
-		headers: {
-			Authorization: `Bearer ${token}`,
-			"Content-Type": "application/json",
-		},
-	});
-	const userData = await response.json();
-	return userData;
-};
-
-// Get the token from authorization
-export const getToken = () => {
-	const hash = window.location.hash;
-	let token = localStorage.getItem("token");
-
-	if (!token && hash) {
-		token = hash
-			.substring(1)
-			.split("&")
-			.find((elem) => elem.startsWith("access_token"))
-			.split("=")[1];
-		window.location.hash = "";
-		localStorage.setItem("token", token);
+export const getUserInfo = async (token: string): Promise<UserProfile> => {
+	try {
+		const response = await fetch("https://api.spotify.com/v1/me/", {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+		});
+		const userData = await response.json();
+		return userData;
+	} catch (e) {
+		throw e;
 	}
-	return token;
 };

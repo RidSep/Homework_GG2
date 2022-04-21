@@ -1,58 +1,54 @@
-import { Provider } from "react-redux";
-import store from "./store";
-
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import {
 	BrowserRouter as Router,
 	Route,
 	Switch,
 	Redirect,
 } from "react-router-dom";
+import { getUserInfo } from "./components/Auth/index";
+import { getToken } from "./components/functions";
 
-// Auth
-import { getToken } from "./components/Auth/index";
+// Redux
+import { useTypedDispatch, useTypedSelector } from "./components/hooks/ReduxHooks";
+import { login, storeUserInfo } from "./store/authSlice";
 
 // Pages
 import Home from "./pages/home/index";
 import LoginPage from "./pages/login/index";
 
-// Token Context
-import TokenContext from "./context/TokenContext";
-
-
 const App = () => {
-	const [token, setToken] = useState("");
-	const value = useMemo(() => ({ token, setToken }), [token]);
+	const dispatch = useTypedDispatch();
+	const isLogin = useTypedSelector((state) => state.auth.isAuthenticated);
 
 	// Check if the token is available
 	useEffect(() => {
-		if (!token) {
-			setToken(getToken());
+		if (localStorage.getItem("token")) {
+			const accessToken: string = getToken() as string;
+			dispatch(login(accessToken));
+			getUserInfo(accessToken).then((data) => dispatch(storeUserInfo(data)));
 		}
-	}, []);
+	}, [dispatch, isLogin]);
+
 	return (
-		<Provider store={store}>
-		  <TokenContext.Provider value={value}>
-			<Router>
-				<Switch>
-					<Route path='/create-playlist'>
-						{!token ? (
-							<Redirect exact from='/create-playlist' to='/' />
-						) : (
-							<Home />
-						)}
-					</Route>
-					<Route path='/'>
-						{token ? (
-							<Redirect exact from='/' to='/create-playlist' />
-						) : (
-							<LoginPage />
-						)}
-					</Route>
-				</Switch>
-			</Router>
-		</TokenContext.Provider>
-		</Provider>
-	  );
+		<Router>
+			<Switch>
+				<Route path='/create-playlist'>
+					{!isLogin ? (
+						<Redirect exact from='/create-playlist' to='/' />
+					) : (
+						<Home />
+					)}
+				</Route>
+				<Route path='/'>
+					{isLogin ? (
+						<Redirect exact from='/' to='/create-playlist' />
+					) : (
+						<LoginPage />
+					)}
+				</Route>
+			</Switch>
+		</Router>
+	);
 };
+
 export default App;

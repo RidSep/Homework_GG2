@@ -1,10 +1,8 @@
-import React from "react";
-
+import React, { useState }  from "react";
 import Card from "./UI/Card";
 import "./createplaylist.css";
 
 const CreatePlaylist = ({ onClose, onSubmit, show }) => {
-
 	if (!show) {
 		return null;
 	}
@@ -18,7 +16,7 @@ const CreatePlaylist = ({ onClose, onSubmit, show }) => {
 						X
 					</button>
 				</div>
-				<form className='form' onSubmit={() => onSubmit}>
+				<form className='form' onSubmit={onSubmit}>
 					<div className='form-group'>
 						<label htmlFor='title'>Title</label>
 						<input

@@ -1,5 +1,6 @@
 import React from "react";
 import MusicCard from "./music-card";
+import "./musics.css";
 
 const Musics = ({ tracks, onSelectTrack, selectedTracks }) => {
 	function renderTrackCards() {
@@ -9,7 +10,9 @@ const Musics = ({ tracks, onSelectTrack, selectedTracks }) => {
 					key={track.id}
 					track={track}
 					onSelectTrack={onSelectTrack}
-					isSelected={selectedTracks.includes(track)}
+					isSelected={selectedTracks.find(
+						(selectedTrack) => selectedTrack.id === track.id
+					)}
 				/>
 			);
 		});
