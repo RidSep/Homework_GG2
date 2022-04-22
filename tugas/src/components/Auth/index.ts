@@ -4,7 +4,6 @@ import { UserProfile } from "../../components/spotify";
 export const authSpotify = (): void => {
 	const config = {
 		client_id: `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`,
-		redirect_uri: `${process.env.REACT_APP_BASE_URL}`,
 		authorize_url: `https://accounts.spotify.com/authorize`,
 		scope: [
 			"user-read-email",
@@ -14,7 +13,7 @@ export const authSpotify = (): void => {
 		],
 	};
 
-	let redirectUrl = `${config.authorize_url}?client_id=${config.client_id}&response_type=token&redirect_uri=${config.redirect_uri}&scope=${config.scope}`;
+	let redirectUrl = `${config.authorize_url}?client_id=${config.client_id}&response_type=token&redirect_uri=https://final-project-hazel.vercel.app/&scope=${config.scope}`;
 
 	window.location.replace(redirectUrl);
 };
