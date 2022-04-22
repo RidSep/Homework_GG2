@@ -8,8 +8,13 @@
 	box-shadow: 0 0 3em hsl(var(--clr-black) / 0.5);
 }
 
+.nav-brand img{
+	height: 80px;
+	width: 110px;
+}
 .navbar-brand img {
 	width: 3rem;
+	height: 1rem;
 }
 
 .nav-list {
@@ -23,6 +28,7 @@
 	left: 1rem;
 	box-shadow: 0 1em 1em hsl(var(--clr-primary) / 0.1);
 	transition: all 0.3s ease-in-out;
+	color:white;
 }
 
 .nav-list .btn-create:hover {

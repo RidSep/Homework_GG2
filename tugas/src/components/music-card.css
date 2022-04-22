@@ -1,6 +1,5 @@
 *{
 	box-sizing: border-box;
-	
 }
 .select-song button {
 	text-transform: uppercase;
@@ -22,6 +21,8 @@
 	padding: 15px;
     margin-bottom: 40px;
 	flex: 1;
+	margin-left: 50px;
+	background-color: #282c34;
 }
 
 .track-card .content {

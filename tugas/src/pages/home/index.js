@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { Track } from "../../components/spotify";
 
 // Configurations
 import { getTracks, createPlaylist } from "../../components/API/api";
@@ -14,13 +15,11 @@ import {
 // Components
 import logo from "../../spotify.png";
 import CreatePlaylist from "../../components/createplaylist";
-import SearchTracks from "../../components/Search/SearchMusic";
+import SearchMusis from "../../components/Search/SearchMusic";
 import Navigation from "../../components/navigation";
 import Musics from "../../components/musics";
 import PreviewSelectedMusics from "../../components/PreviewSelectedMusics";
 
-// Types
-import { Track } from "../../components/spotify";
 
 // Styling
 import "./index.css";
@@ -67,7 +66,9 @@ const Home = () => {
 				selectedTracks.filter((selectedTrack) => selectedTrack !== track)
 			);
 		} else {
-			setSelectedTracks((prev) => [...prev, track]);
+			setSelectedTracks(prev => {
+				return [...prev, track];
+			  })
 		}
 	};
 
@@ -119,7 +120,7 @@ const Home = () => {
 						Find a track, select it, and create your personal playlist
 					</p>
 				</div>
-				<SearchTracks onChange={handleChange} onSubmit={handleSearch} />
+				<SearchMusis onChange={handleChange} onSubmit={handleSearch} />
 				<Musics
 					tracks={tracks}
 					onSelectTrack={handleSelect}

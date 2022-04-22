@@ -3,7 +3,12 @@ import "./SearchMusic.css";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const SearchMusic = ({ onSubmit, onChange }) => {
+
+type SearchTracksProps = {
+	onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+const SearchMusic = ({ onSubmit, onChange }: SearchTracksProps) =>{
 	return (
 		<div className='search-container'>
 			<form action='#' onSubmit={onSubmit}>
@@ -13,6 +18,7 @@ const SearchMusic = ({ onSubmit, onChange }) => {
 			</form>
 		</div>
 	);
+	
 };
 
 export default SearchMusic;
